@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord-Like Chat App</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #36393f;
+        }
+
+        .chat-container {
+            width: 600px;
+            height: 80vh;
+            background: #2f3136;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background: #202225;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .chat-box {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            border-bottom: 1px solid #424549;
+            color: #fff;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .message .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #7289da;
+            margin-right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .message .content {
+            background: #3f4044;
+            border-radius: 5px;
+            padding: 10px;
+            max-width: 80%;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            background: #40444b;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            background: #2f3136;
+            color: #fff;
+            outline: none;
+        }
+
+        .chat-input button {
+            border: none;
+            background-color: #7289da;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .chat-input button:hover {
+            background-color: #5b6eae;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">Chat Room</div>
+        <div class="chat-box" id="chat-box">
+            <!-- Messages will be displayed here -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="message-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const messageText = input.value.trim();
+
+            if (messageText) {
+                const chatBox = document.getElementById('chat-box');
+                const message = document.createElement('div');
+                message.classList.add('message');
+
+                const avatar = document.createElement('div');
+                avatar.classList.add('avatar');
+                avatar.textContent = 'U'; // User Initials
+
+                const content = document.createElement('div');
+                content.classList.add('content');
+                content.textContent = messageText;
+
+                message.appendChild(avatar);
+                message.appendChild(content);
+                chatBox.appendChild(message);
+
+                chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to bottom
+                input.value = '';
+            }
+        }
+
+        document.getElementById('message-input').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
